@@ -14,4 +14,10 @@ public class Request {
     private final URI uri;
     private final RequestMethod requestMethod;
     private final Map<String, List<String>> header;
+
+    public Request(URI uri) {
+        this.uri = uri;
+        this.requestMethod = RequestMethod.GET;
+        this.header = null;
+    }
 }

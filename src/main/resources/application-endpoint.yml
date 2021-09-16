@@ -1,0 +1,6 @@
+spring:
+  fruit-store:
+    url: http://fruit.api.postype.net
+
+  vegetable-store:
+    url: http://vegetable.api.postype.net
