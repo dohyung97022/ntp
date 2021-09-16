@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @AllArgsConstructor
 public class Request {
     private final URI uri;
     private final RequestMethod requestMethod;
-    private final List<Header> headers;
+    private final Map<String, List<String>> header;
 }
