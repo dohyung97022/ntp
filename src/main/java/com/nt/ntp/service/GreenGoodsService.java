@@ -9,12 +9,14 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,6 +56,34 @@ public class GreenGoodsService {
         cookie.setPath("/");
         cookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(COOKIE_DUE_DAY));
         httpServletResponse.addCookie(cookie);
+    }
+
+    public List<String> getGoods(GreenGoods greenGoods, String authorization) throws IOException {
+        String PATH;
+        String url;
+
+        switch (greenGoods) {
+            case FRUIT:
+                url = endpointConfig.FRUIT_STORE_URL;
+                PATH = "product";
+                break;
+            case VEGETABLE:
+                url = endpointConfig.VEGETABLE_STORE_URL;
+                PATH = "item";
+                break;
+            default:
+                throw new IllegalArgumentException("GreenGoods 에 url 이 할당되지 않았습니다.");
+        }
+
+        URI uri = UriComponentsBuilder.fromUriString(url).path(PATH).build().toUri();
+        Map<String, List<String>> header = new Hashtable<>();
+        header.put(HttpHeaders.AUTHORIZATION, List.of(authorization));
+        Response response = HttpUtils.connect(new Request(uri, RequestMethod.GET, header));
+
+        List<String> goodsList = new ArrayList<>();
+        response.getJsonNodeBody().elements().forEachRemaining(jsonNode -> goodsList.add(jsonNode.asText()));
+
+        return goodsList;
     }
 
     private String getAccessTokenFrom(String setCookieValue) {
