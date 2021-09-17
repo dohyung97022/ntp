@@ -9,7 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
 
-public class VegetableWorker extends GreenGoodsWorker implements GreenGoodsWorkerImpl{
+public class VegetableWorker extends GreenGoodsWorker {
 
     public VegetableWorker(String url) {
         super.URL = url;

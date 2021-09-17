@@ -8,7 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
 
-public class FruitWorker extends GreenGoodsWorker implements GreenGoodsWorkerImpl{
+public class FruitWorker extends GreenGoodsWorker {
     static final String ACCESS_TOKEN_BODY_KEY = "accessToken";
 
     public FruitWorker(String url) {
