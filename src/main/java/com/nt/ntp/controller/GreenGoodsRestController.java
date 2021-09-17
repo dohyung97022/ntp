@@ -2,6 +2,7 @@ package com.nt.ntp.controller;
 
 import com.nt.ntp.dto.response.GetGoodsResponseDto;
 import com.nt.ntp.dto.response.GetPriceResponseDto;
+import com.nt.ntp.exception.EmptyRequestParamException;
 import com.nt.ntp.service.GreenGoodsService;
 import com.nt.ntp.util.enums.GreenGoods;
 import lombok.AccessLevel;
@@ -37,6 +38,8 @@ public class GreenGoodsRestController {
     @GetMapping("/price")
     public ResponseEntity<GetPriceResponseDto> getPrice
             (GreenGoods type, String name, @CookieValue(HttpHeaders.AUTHORIZATION) String token) throws IOException {
+        if (name.equals(""))
+            throw new EmptyRequestParamException("name");
         return ResponseEntity.ok().body(greenGoodsService.getPrice(type, token, name));
     }
 }

@@ -1,6 +1,7 @@
 package com.nt.ntp.service.factory;
 
 import com.nt.ntp.config.EndpointConfig;
+import com.nt.ntp.exception.InvalidGreenGoodsOfFactoryException;
 import com.nt.ntp.service.product.FruitWorker;
 import com.nt.ntp.service.product.GreenGoodsWorker;
 import com.nt.ntp.service.product.VegetableWorker;
@@ -21,7 +22,7 @@ public class GreenGoodsWorkerFactory {
             case VEGETABLE:
                 return new VegetableWorker(endpointConfig.VEGETABLE_STORE_URL);
             default:
-                throw new IllegalArgumentException("GreenGoods 에 url 이 할당되지 않았습니다.");
+                throw new InvalidGreenGoodsOfFactoryException();
         }
     }
 }
