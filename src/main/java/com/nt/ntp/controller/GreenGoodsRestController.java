@@ -23,21 +23,21 @@ public class GreenGoodsRestController {
     private final GreenGoodsService greenGoodsService;
 
     @GetMapping("/token")
-    public ResponseEntity<?> setCookieAsToken(@RequestParam("type") GreenGoods type, HttpServletResponse response) throws IOException {
+    public ResponseEntity<?> setCookieAsToken(GreenGoods type, HttpServletResponse response) throws IOException {
         greenGoodsService.setCookieToAccessToken(type, response);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/product")
     public ResponseEntity<GetGoodsResponseDto> getGoods
-            (@RequestParam("type") GreenGoods type, @CookieValue(HttpHeaders.AUTHORIZATION) String token) throws IOException {
+            (GreenGoods type, @CookieValue(HttpHeaders.AUTHORIZATION) String token) throws IOException {
         List<String> products = greenGoodsService.getGoods(type, token);
         return ResponseEntity.ok().body(new GetGoodsResponseDto(products));
     }
 
     @GetMapping("/price")
     public ResponseEntity<GetPriceResponseDto> getPrice
-            (@RequestParam GreenGoods type, @RequestParam String name, @CookieValue(HttpHeaders.AUTHORIZATION) String token) throws IOException {
+            (GreenGoods type, String name, @CookieValue(HttpHeaders.AUTHORIZATION) String token) throws IOException {
         if (name.equals(""))
             throw new EmptyRequestParamException("name");
         return ResponseEntity.ok().body(greenGoodsService.getPrice(type, token, name));
