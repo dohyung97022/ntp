@@ -12,7 +12,15 @@
 </body>
 <script>
     function getAccessToken(type) {
-        $.get("http://localhost/api/green-goods/token?type=" + type);
+        $.get("http://localhost/api/green-goods/token?type=" + type, function (data) {
+            getGreenGoods(type)
+        });
+    }
+
+    function getGreenGoods(type) {
+        $.get("http://localhost/api/green-goods/product?type=" + type, function (data) {
+            $('#green-goods').text(data.goods);
+        })
     }
 </script>
 </html>
