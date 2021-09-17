@@ -1,6 +1,7 @@
 package com.nt.ntp.controller;
 
 import com.nt.ntp.dto.response.GetGoodsResponseDto;
+import com.nt.ntp.dto.response.GetPriceResponseDto;
 import com.nt.ntp.service.GreenGoodsService;
 import com.nt.ntp.util.enums.GreenGoods;
 import lombok.AccessLevel;
@@ -31,5 +32,11 @@ public class GreenGoodsRestController {
             (@RequestParam("type") GreenGoods type, @CookieValue(HttpHeaders.AUTHORIZATION) String token) throws IOException {
         List<String> products = greenGoodsService.getGoods(type, token);
         return ResponseEntity.ok().body(new GetGoodsResponseDto(products));
+    }
+
+    @GetMapping("/price")
+    public ResponseEntity<GetPriceResponseDto> getPrice
+            (@RequestParam GreenGoods type, @RequestParam String name, @CookieValue(HttpHeaders.AUTHORIZATION) String token) throws IOException {
+        return ResponseEntity.ok().body(greenGoodsService.getPrice(type, token, name));
     }
 }
