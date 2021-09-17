@@ -18,7 +18,7 @@ public class VegetableWorker extends GreenGoodsWorker {
 
     @Override
     public String getAccessToken() throws IOException {
-        URI uri = UriComponentsBuilder.fromUriString(URL).path(ACCESS_TOKEN_PATH).build().toUri();
+        URI uri = UriComponentsBuilder.fromUriString(URL).path(ACCESS_TOKEN_PATH).encode().build().toUri();
         Response response = HttpUtils.connect(new Request(uri));
         String setCookieValue = HttpUtils.joinHeaderValues(response.getHeader().get(HttpHeaders.SET_COOKIE));
         return HttpUtils.getAccessTokenFromSetCookieValue(setCookieValue);

@@ -26,7 +26,7 @@ public class GreenGoodsWorker implements GreenGoodsWorkerImpl{
     }
 
     public List<String> getGoods(String authorization) throws IOException{
-        URI uri = UriComponentsBuilder.fromUriString(URL).path(GET_GOODS_PATH).build().toUri();
+        URI uri = UriComponentsBuilder.fromUriString(URL).path(GOODS_PATH).encode().build().toUri();
         Map<String, List<String>> header = new Hashtable<>();
         header.put(HttpHeaders.AUTHORIZATION, List.of(authorization));
         Response response = HttpUtils.connect(new Request(uri, RequestMethod.GET, header));

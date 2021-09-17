@@ -18,7 +18,7 @@ public class FruitWorker extends GreenGoodsWorker {
 
     @Override
     public String getAccessToken() throws IOException {
-        URI uri = UriComponentsBuilder.fromUriString(URL).path(ACCESS_TOKEN_PATH).build().toUri();
+        URI uri = UriComponentsBuilder.fromUriString(URL).path(ACCESS_TOKEN_PATH).encode().build().toUri();
         Response response = HttpUtils.connect(new Request(uri));
         return response.getJsonNodeBody().get(ACCESS_TOKEN_BODY_KEY).textValue();
     }
