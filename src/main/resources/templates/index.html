@@ -6,35 +6,62 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-<button onclick="getAccessToken('VEGETABLE')">VEGETABLE</button>
-<button onclick="getAccessToken('FRUIT')">FRUIT</button>
+<div>
+    <input type="radio" id="vegetable-radio" name="select" onclick="getAccessToken('VEGETABLE')">
+    <label for="vegetable-radio">VEGETABLE</label><br>
+    <input type="radio" id="fruit-radio" name="select" onclick="getAccessToken('FRUIT')">
+    <label for="fruit-radio">FRUIT</label><br>
+</div>
 <p id="green-goods"></p>
 <p id="name"></p>
 <p id="price"></p>
 <input type="text" id="search"/>
 <button onclick="getPrice()">가격 검색</button>
+<p id="error" style="color: red"></p>
 </body>
 <script>
     let currentType;
+    const url = "http://localhost/api/green-goods";
 
     function getAccessToken(type) {
         currentType = type;
-        $.get(`http://localhost/api/green-goods/token?type=${type}`, function () {
-            getGreenGoods()
-        });
+        $.ajax({
+            type: 'GET', url: url + `/token?type=${type}`,
+            error: function (error) {
+                $('#error').text(error.responseText);
+            },
+            success: function () {
+                $('#error').text('');
+                getGreenGoods();
+            },
+        })
     }
 
     function getGreenGoods() {
-        $.get(`http://localhost/api/green-goods/product?type=${currentType}`, function (data) {
-            $('#green-goods').text(data.goods);
+        $.ajax({
+            type: 'GET', url: url + `/product?type=${currentType}`,
+            error: function (error) {
+                $('#error').text(error.responseText);
+            },
+            success: function (data) {
+                $('#error').text('');
+                $('#green-goods').text(data.goods);
+            },
         })
     }
 
     function getPrice() {
         name = $('#search').val();
-        $.get(`http://localhost/api/green-goods/price?type=${currentType}&name=${name}`, function (data) {
-            $('#name').text(data.name);
-            $('#price').text(data.price);
+        $.ajax({
+            type: 'GET', url: url + `/price?type=${currentType}&name=${name}`,
+            error: function (error) {
+                $('#error').text(error.responseText);
+            },
+            success: function (data) {
+                $('#error').text('');
+                $('#name').text(data.name);
+                $('#price').text(data.price);
+            },
         })
     }
 </script>
