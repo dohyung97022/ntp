@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<button onclick="getAccessToken('VEGETABLE')">VEGETABLE</button>
+<button onclick="getAccessToken('FRUIT')">FRUIT</button>
+<p id="green-goods"></p>
+</body>
+<script>
+    function getAccessToken(type) {
+        $.get("http://localhost/api/green-goods/token?type=" + type);
+    }
+</script>
+</html>
