@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class GreenGoodsWorker implements GreenGoodsWorkerImpl{
     protected static final String ACCESS_TOKEN_PATH = "token";
-    protected String GET_GOODS_PATH;
+    protected String GOODS_PATH;
     protected String URL;
 
     public String getAccessToken() throws IOException{
