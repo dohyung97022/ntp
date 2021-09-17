@@ -13,7 +13,7 @@ public class VegetableWorker extends GreenGoodsWorker {
 
     public VegetableWorker(String url) {
         super.URL = url;
-        super.GET_GOODS_PATH = "item";
+        super.GOODS_PATH = "item";
     }
 
     @Override

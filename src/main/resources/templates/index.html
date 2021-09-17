@@ -9,17 +9,32 @@
 <button onclick="getAccessToken('VEGETABLE')">VEGETABLE</button>
 <button onclick="getAccessToken('FRUIT')">FRUIT</button>
 <p id="green-goods"></p>
+<p id="name"></p>
+<p id="price"></p>
+<input type="text" id="search"/>
+<button onclick="getPrice()">가격 검색</button>
 </body>
 <script>
+    let currentType;
+
     function getAccessToken(type) {
-        $.get("http://localhost/api/green-goods/token?type=" + type, function (data) {
-            getGreenGoods(type)
+        currentType = type;
+        $.get(`http://localhost/api/green-goods/token?type=${type}`, function () {
+            getGreenGoods()
         });
     }
 
-    function getGreenGoods(type) {
-        $.get("http://localhost/api/green-goods/product?type=" + type, function (data) {
+    function getGreenGoods() {
+        $.get(`http://localhost/api/green-goods/product?type=${currentType}`, function (data) {
             $('#green-goods').text(data.goods);
+        })
+    }
+
+    function getPrice() {
+        name = $('#search').val();
+        $.get(`http://localhost/api/green-goods/price?type=${currentType}&name=${name}`, function (data) {
+            $('#name').text(data.name);
+            $('#price').text(data.price);
         })
     }
 </script>

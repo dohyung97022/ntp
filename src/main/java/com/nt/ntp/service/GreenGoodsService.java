@@ -1,5 +1,6 @@
 package com.nt.ntp.service;
 
+import com.nt.ntp.dto.response.GetPriceResponseDto;
 import com.nt.ntp.service.factory.GreenGoodsWorkerFactory;
 import com.nt.ntp.util.enums.GreenGoods;
 import lombok.AccessLevel;
@@ -30,5 +31,9 @@ public class GreenGoodsService {
 
     public List<String> getGoods(GreenGoods greenGoods, String authorization) throws IOException {
         return greenGoodsWorkerFactory.of(greenGoods).getGoods(authorization);
+    }
+
+    public GetPriceResponseDto getPrice(GreenGoods greenGoods, String authorization, String name) throws IOException {
+        return greenGoodsWorkerFactory.of(greenGoods).getPrice(authorization, name);
     }
 }
